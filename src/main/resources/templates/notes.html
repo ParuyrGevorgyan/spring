@@ -27,11 +27,17 @@
 
     <div>
         <table>
-            <tr>
+            <tr >
+                <th>ID</th>
+                <th>Importance</th>
                 <th>Text</th>
+                <th>Timestamp</th>
             </tr>
             <tr th:each="note : ${notes}">
+                <td th:text="${note.id}"></td>
+                <td th:text="${note.importance}"></td>
                 <td th:text="${note.text}"></td>
+                <td th:text="${note.timestamp}"></td>
             </tr>
         </table>
     </div>

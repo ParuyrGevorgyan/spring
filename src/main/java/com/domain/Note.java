@@ -16,7 +16,16 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
-    private ImportanceEnum importance;
+
+    public String getImportance() {
+        return importance;
+    }
+
+    public void setImportance(String importance) {
+        this.importance = importance;
+    }
+
+    private String importance;
     private String text="dodge goes dodge";
     @Column(nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -24,6 +33,7 @@ public class Note {
     private Date timestamp;
 
     public Note() {
+
     }
 
     /*private static Long counter =0L;
@@ -46,14 +56,6 @@ public class Note {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public ImportanceEnum getImportance() {
-        return importance;
-    }
-
-    public void setImportance(ImportanceEnum importance) {
-        this.importance = importance;
     }
 
     public String getText() {
