@@ -5,50 +5,38 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
-@Table(name="notes")
+@Table(name = "notes")
 @EntityListeners(AuditingEntityListener.class)
-@JsonIgnoreProperties(value = {"createdAt"},allowGetters = true)
+@JsonIgnoreProperties(value = {"createdAt"}, allowGetters = true)
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    public String getImportance() {
-        return importance;
-    }
-
-    public void setImportance(String importance) {
-        this.importance = importance;
-    }
-
-    private String importance;
-    private String text="dodge goes dodge";
+    @Column
+    @Enumerated(EnumType.STRING)
+    private ImportanceEnum importance;
+    @Column
+    private String text;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    @CreatedDate
-    private Date timestamp;
+    private Timestamp timestamp;
 
     public Note() {
-
     }
 
-    /*private static Long counter =0L;
-    private static Long getCounter(){
-        counter++;
-        return counter;
-    }
 
-    public Note(ImportanceEnum importance, String text) {
-        this.id=getCounter();
-        this.timestamp = new Timestamp(System.currentTimeMillis());
-
+    public Note(String text, ImportanceEnum importance) {
         this.importance = importance;
         this.text = text;
-    }*/
+        this.timestamp = Timestamp.from(Instant.now());
+    }
+
 
     public Long getId() {
         return id;
@@ -66,11 +54,19 @@ public class Note {
         this.text = text;
     }
 
-    public Date getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Date timestamp) {
+    public void setTimestamp(Timestamp timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public ImportanceEnum getImportance() {
+        return importance;
+    }
+
+    public void setImportance(ImportanceEnum importance) {
+        this.importance = importance;
     }
 }

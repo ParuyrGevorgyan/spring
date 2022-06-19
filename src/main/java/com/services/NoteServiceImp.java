@@ -15,7 +15,7 @@ public class NoteServiceImp implements  NoteService{
 
     @Override
     public List<Note> listOfNotes() {
-        return noteRepo.findAll();
+        return noteRepo.findByOrderByTimestampDesc();
     }
 
     @Override

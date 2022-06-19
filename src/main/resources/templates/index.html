@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+table, th, td {
+  border: 1px solid black
+}
+</style>
+<title>Spring Boot Note App</title>
+<meta charset="utf-8"/>
+</head>
+<body>
+<br/><br/>
+
+    <form th:action="@{add}" th:object="${add}" method="POST">
+        <div>
+            <h1>Add your Note</h1>
+            <label>Importance:</label>
+            <!--<select type="text" th:field="*{importance}">
+                <option value="URGENT">URGENT</option>
+                <option value="STANDARD">STANDARD</option>
+                <option value="OPTIONAL">OPTIONAL</option>
+            </select>-->
+            <select th:field="*{importance}">
+                <option th:each="type : ${T(com.domain.ImportanceEnum).values()}"
+                        th:value="${type}" th:text="${type}"></option>
+            </select>
+            <br/><br/>
+            <label>Note: <input type="text" th:field="*{text}"/></label>
+            <br/><br/>
+        </div>
+        <button type="submit">Add</button>
+    </form>
+
+
+
+<h1>All Notes</h1>
+<hr/>
+
+
+<table>
+    <tr >
+        <th>ID</th>
+        <th>Importance</th>
+        <th>Text</th>
+        <th>Timestamp</th>
+    </tr>
+    <tr th:each="note : ${notes}" method="GET">
+        <td th:text="${note.id}"></td>
+        <td th:text="${note.importance}"></td>
+        <td th:text="${note.text}"></td>
+        <td th:text="${note.timestamp}"></td>
+    </tr>
+</table>
+
+
+</body>
+</html>
